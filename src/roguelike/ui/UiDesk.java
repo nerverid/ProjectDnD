@@ -6,9 +6,13 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 import javax.swing.JFrame;
+import roguelike.helppanel.HelpPanel;
 
 public class UiDesk extends JFrame implements KeyListener, MouseListener{
 
+	private HelpPanel terminal;
+	private AsciiCamera camera;
+	
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		// TODO Auto-generated method stub
