@@ -7,6 +7,7 @@ import java.awt.event.MouseListener;
 
 import javax.swing.JFrame;
 import roguelike.helppanel.HelpPanel;
+import roguelike.graphics.*;
 
 public class UiDesk extends JFrame implements KeyListener, MouseListener{
 
