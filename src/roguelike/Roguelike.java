@@ -1,6 +1,7 @@
 package roguelike;
 
 import roguelike.helppanel.*;
+import roguelike.ui.UiDesk;
 
 public class Roguelike {
 	
@@ -11,6 +12,8 @@ public class Roguelike {
 	public Roguelike(int screenWidth, int sreenHeight){
 		this.screenWidth = screenWidth;
 		this.screenHeight = screenHeight;
+		
+		ui = new UiDesk(screenWidth, screenHeight, new Rectangle(mapWidth, mapHeight));
 	}
 	
 	public static void main(String [] args) {
