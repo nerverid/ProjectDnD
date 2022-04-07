@@ -45,5 +45,20 @@ public class HelpPanel extends JPanel{
 		
 		widthInCharacters = width;
 		heightInCharacters = height;
+		
+		defaultBackgroundColor = back;
+		defaultForegroundColor = white;
+		
+		chars = new car[widthInCharacters][heightInCharacters];
+		backgroundColors = new Color[widthInCharacters][heightInCharacters];
+		foregroundColors = new Color[widthInCharacters][heightInCharacters];
+		
+		oldBackGroundColors = new Color[widthInCharacters][heightInCharacters];
+		oldForegroundColors = new Color[widthInCharacters][heightInCharacters];
+		
+		if(font == null) {
+			font = AsciiFont.CP437_9x16;
+		}
+		setAsciiFont(font);
 	}
 }

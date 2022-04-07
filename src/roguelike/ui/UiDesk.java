@@ -13,6 +13,10 @@ public class UiDesk extends JFrame implements KeyListener, MouseListener{
 
 	private HelpPanel terminal;
 	private AsciiCamera camera;
+	private Queue<InputEvent> inputQueue;
+	
+	private int screenWidth;
+	private int screenHeight;
 	
 	@Override
 	public void mouseClicked(MouseEvent e) {
