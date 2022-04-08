@@ -4,6 +4,11 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.*;
+import java.awt.event.*;
+import java.util.Map;
+import java.util.LinkedList;
+import java.util.Queue;
 
 import javax.swing.JFrame;
 import roguelike.helppanel.HelpPanel;
@@ -17,6 +22,22 @@ public class UiDesk extends JFrame implements KeyListener, MouseListener{
 	
 	private int screenWidth;
 	private int screenHeight;
+	
+	public UiDesk(int screenWidth, int screenHeight, Rectangle mapDimensions) {
+		super("Roguelike");
+		
+		this.screenWidth = screenWidth;
+		this.screenHeight = screenHeight;
+		inputQueue = new LinkedList<>();
+		
+		Rectangle gameViewArea = new Rectangle(screenWidth, screenHeight-5);
+		terminal = new HelpPanel(screenWidth, screenHeight);
+		camera = new AsciiCamera(mapDimensions, gameViewArea);
+		
+		super.add(terminal);
+		super.addKeyListener(this);
+		super.addMouseListener(this);
+	}
 	
 	@Override
 	public void mouseClicked(MouseEvent e) {
