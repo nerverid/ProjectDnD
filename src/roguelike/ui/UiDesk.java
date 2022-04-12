@@ -37,7 +37,28 @@ public class UiDesk extends JFrame implements KeyListener, MouseListener{
 		super.add(terminal);
 		super.addKeyListener(this);
 		super.addMouseListener(this);
+		super.setSize(screenWidth*9, screenHeight*16);
+		super.setVisible(true);
+		super.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		super.repaint();
 	}
+	
+	public HelpPanel getTerminal() {
+		return terminal;
+	}
+	
+	public InputEvent getNextInput() {
+		return inputQueue.poll();
+	}
+	
+	public void pointCameraAt(World world, int xfocus, int yfocus) {
+		camera.lookAt(terminal, world, xfocus, yfocus);
+	}
+	
+	public void refresh() {
+		terminal.repaint();
+	}
+	
 	
 	@Override
 	public void mouseClicked(MouseEvent e) {
@@ -78,13 +99,30 @@ public class UiDesk extends JFrame implements KeyListener, MouseListener{
 
 	@Override
 	public void keyPressed(KeyEvent e) {
-		// TODO Auto-generated method stub
-		
+		inputQueue.add(e);
 	}
 
 	@Override
 	public void keyReleased(KeyEvent e) {
 		// TODO Auto-generated method stub
+		
+	}
+	
+	public void drawDynamicLegend(Rectangle gameViewArea, World world, Map<String, Map<String, String>> tileData, Map<String, Map<String, String>> creatureData) {
+		int x = 5;
+		int y = gameViewArea.height;
+		char glyph;
+		
+		for (String tileType : world.getTileTypesInArea(gameViewArea)) {
+			glyph = tileData.get(tileType).get("glyph").charAt(0);
+			terminal.write(glyph + "  " + titleType, x, y);
+			y += 1;
+			
+			if(y == gameViewArea.height+2) {
+				x += 15;
+				y = gameViewArea.height;
+			}
+		}
 		
 	}
 
