@@ -62,8 +62,7 @@ public class UiDesk extends JFrame implements KeyListener, MouseListener{
 	
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
+		inputQueue.add(e);
 	}
 	
 
@@ -124,6 +123,16 @@ public class UiDesk extends JFrame implements KeyListener, MouseListener{
 			}
 		}
 		
+		for(String creatureType : world.getCreatureTypesInArea(gameViewArea)) {
+			glyph = creatureData.get(creatureType).get("glyph").charAt(0);
+			terminal.write(glyph + "   " + cratureType, x, y);
+			y += 1;
+			
+			if(y == gameViewArea.height+5) {
+				x += 15;
+				y = gameViewArea.height;
+			}
+		}
 	}
 
 }
