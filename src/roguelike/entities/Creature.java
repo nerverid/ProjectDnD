@@ -43,4 +43,33 @@ public class Creature extends Entity{
 			hitpoints += 10;
 		}
 	}
+	
+	public void attackCreature(Creature creature) {
+		creature.setHitpoints(-50);
+	}
+	
+	public void moveTo(World world, int x, int y) {
+		
+	}
+	
+	public void update (World world) {
+		Random rnd = new Random();
+		int performAction = rnd.nextInt(100);
+		if (behaviour.equals("docile") && performAction > 98) {
+			
+			int rndNr = rnd.nextInt(3);
+			
+			if(rndNr == 0) {
+				move(world, 1, 0);
+			} else if (rndNr == 1) {
+				move(world, -1, 0)
+			} else if (rndNr == 2) {
+				move(world, 0, 1);
+			} else if (rndNr == 3) {
+				move(world, 0, -1);
+			}
+		} else if (behaviour.equals("agressive") && performAction > 98) {
+			
+		}
+	}
 }
