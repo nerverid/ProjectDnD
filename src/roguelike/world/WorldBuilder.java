@@ -34,4 +34,26 @@ public class WorldBuilder {
 	public Creature createCreature(String type, int x, int y) {
 		return new Creature(creatureData.get(type), x, y);
 	}
+	
+	public WorldBuilder fill(String tileType) {
+		for(int x = 0; x < width; x++) {
+			for(int y = 0; y< height; y++) {
+				tiles[x][y] = new Tile(tileData.get(tileType), x, y);
+			}
+		}
+		return this;
+	}
+	
+	public WorldBuilder addBorders() {
+		for (int x = 0; x < width; x++) {
+			tiles[x][0] = createTile("wall", x, 0);
+			tiles[x][height-1] = createTile("wall", x, height-1);
+		}
+		
+		for (int y=0; y< height; y++) {
+			tiles[0][y] = createTile("wall", 0, y);
+			tiles[width-1][y] = createTile("wall", width-1, y);
+		}
+		return this;
+	}
 }
