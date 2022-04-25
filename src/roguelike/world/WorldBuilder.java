@@ -11,7 +11,7 @@ public class WorldBuilder {
 	private Tile[][] tiles;
 	private Map<String, Map<String, String>> tileData;
 	private Map<String, Map<String, String>> creatureData;
-	private Set<Creature> creature;
+	private Set<Creature> creatures;
 	
 	public WorldBuilder(Map<String, Map<String, String>> titleData, Map<String, Map<String, String>> creatureData,
 			int widht, int height) {
@@ -20,7 +20,7 @@ public class WorldBuilder {
 		this.tiles = new Tile[width][height];
 		this.tileData = tileData;
 		this.creatureData = creatureData;
-		this.creature = new HashSet<Creature>();
+		this.creatures = new HashSet<Creature>();
 	}
 	
 	public WorldBuilder load(String file) {
@@ -54,6 +54,37 @@ public class WorldBuilder {
 			tiles[0][y] = createTile("wall", 0, y);
 			tiles[width-1][y] = createTile("wall", width-1, y);
 		}
+		return this;
+	}
+	
+	public WorldBuilder carveOutRoom(int topX, int topY, int width, int height) {
+		for(int x= topX; x < topX+width; x++) {
+			for(int y=topY; y < topY+height; y++) {
+				tiles[x][y] = createTile("ground", x, y);
+			}
+		}
+		return this;
+	}
+	
+	public WorldBuilder popularWorld(int nrOfCreatures) {
+		Random rnd = new Random();
+		int rndX;
+		int rndY;
+		
+		for(int i=0; i < nrOfCreatures; i++) {
+			
+			do {
+				rndX = rnd.nextInt(width);
+				rndY = rnd.nextInt(height);
+			} while (tiles[rndX][rndY].isBlocked());
+			
+			List<String> creatureTypes = new ArrayList<String>(creatureData.keySet());
+			creatureTypes.remove("player");
+			String creatureType = creatureTypes.get(rnd.nextInt(creatureTypes.size()));
+			
+			creatures.add(createCreature(creatureType, rndX, rndY));
+		}
+		
 		return this;
 	}
 }
