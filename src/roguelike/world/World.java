@@ -6,7 +6,7 @@ import java.util.Set;
 
 import roguelike.entities.Creature;
 import roguelike.entities.Entity;
-import roguelike.entiteis.Tile;
+import roguelike.entities.Tile;
 
 public class World {
 	
@@ -21,7 +21,7 @@ public class World {
 	
 	public World(Tile[][] tiles) {
 		this.tiles = tiles;
-		this.width = tiles.lenght;
+		this.width = tiles.length;
 		this.height = tiles[0].length;
 	}
 	
@@ -30,7 +30,7 @@ public class World {
 		this.creatures.addAll(creatures);
 		this.tiles = tiles;
 		this.width = tiles.length;
-		this.height = tiles[0].lenght;
+		this.height = tiles[0].length;
 	}
 	
 	public void addEntity(Creature creature) {
@@ -64,7 +64,7 @@ public class World {
 	}
 	
 	public boolean isBlocked(int x, int y) {
-		return (tiles[x][y].isBlocked() || getEntity(x, y) != null);
+		return (tiles[x][y].isBlocked() || getEntityAt(x, y) != null);
 	}
 	
 	public void update() {
@@ -94,7 +94,7 @@ public class World {
 		creatureTypes.add(player.getType());
 		
 		for(Creature creature : this.creatures) {
-			if (creature.getX() > rectangle.getX() && creature.getX() < rectangle.getMax() &&
+			if (creature.getX() > rectangle.getX() && creature.getX() < rectangle.getMaxX() &&
 					creature.getY() > rectangle.getY() && creature.getY() < rectangle.getMaxY()) {
 				creatureTypes.add(creature.getType());
 			}

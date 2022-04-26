@@ -62,7 +62,7 @@ public class Creature extends Entity{
 			if(rndNr == 0) {
 				move(world, 1, 0);
 			} else if (rndNr == 1) {
-				move(world, -1, 0)
+				move(world, -1, 0);
 			} else if (rndNr == 2) {
 				move(world, 0, 1);
 			} else if (rndNr == 3) {
