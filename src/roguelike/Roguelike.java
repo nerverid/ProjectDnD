@@ -81,6 +81,17 @@ public class Roguelike {
 		return entityMap;
 	}
 	
+	public void createWorld() {
+		player = new Creature(creatureData.get("player"), 10, 10);
+		world = new WorldBuilder(tileData, creatureData, mapWidth, mapHeight)
+				.fill("wall")
+				.createRandomWalkCave(12232, 10, 6000)
+				.populateWorld(10)
+				.build();
+		world.player = player;
+		world.addEntity(player);
+	}
+	
 	public static void main(String [] args) {
 		Roguelike game = new Roguelike(80, 24);
 		game.run();
