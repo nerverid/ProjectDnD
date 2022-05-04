@@ -1,9 +1,12 @@
 package roguelike;
 
+import java.awt.Color;
 import java.awt.Rectangle;
+import java.awt.event.KeyEvent;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.lang.reflect.Field;
 import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
@@ -92,12 +95,76 @@ public class Roguelike {
 		world.addEntity(player);
 	}
 	
+	public void processInput() {
+		InputEvent event = ui.getNextInput();
+		if(event instanceof KeyEvent) {
+			KeyEvent keypress = (KeyEvent)event;
+			switch(keypress.getKeyCode()) {
+				case KeyEvent.VK_LEFT:
+					player.move(world, -1, 0);
+					break;
+				case KeyEvent.VK_RIGHT:
+					player.move(world, 1, 0);
+					break;
+				case KeyEvent.VK_UP:
+					player.move(world, 0, -1);
+					break;
+				case KeyEvent.VK_DOWN:
+					player.move(world, 0, 1);
+					break;
+			}
+		} else if (event instanceof MouseEvent) {
+			
+		}
+	}
+	
+	public void render() {
+		ui.pointCameraAt(world, player.getX(), player.getY());
+		ui.drawDynamicLegend(gameViewArea, world, tileData, creatureData);
+		ui.refresh();
+	}
+	
+	public void update() {
+		world.update();
+	}
+	
+	public void run() {
+		isRunning = true;
+		
+		while(isRunning) {
+			long startTime = System.nanoTime();
+			
+			processInput();
+			update();
+			render();
+			
+			long endTime = System.nanoTime();
+			long sleepTime = timePerLoop - (endTime - startTime);
+			
+			if(sleepTime > 0) {
+				try {
+					Thread.sleep(sleepTime/1000000);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+	}
+	
 	public static void main(String [] args) {
 		Roguelike game = new Roguelike(80, 24);
 		game.run();
 	}
 	
-	public void run() {
+	public static Color stringToColor(String colorString) {
+		Color color;
+		try {
+			Field field = Color.class.getField(colorString);
+			color = (Color)field.get(null);
+		} catch (Exception e) {
+			color = null;
+		}
 		
+		return color;
 	}
 }
