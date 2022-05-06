@@ -14,7 +14,32 @@ import javax.swing.JPanel;
 
 public class HelpPanel extends JPanel{
 	
-	private static Color black = new Color(0, 0, 0);
+	public static Color black = new Color(0, 0, 0);
+	public static Color red = new Color (128, 0, 0);
+	public static Color green = new Color (0, 128, 0);
+	public static Color yellow = new Color (128, 128, 0);
+	public static Color blue = new Color (0, 0, 128);
+	public static Color magenta = new Color (128, 0, 128);
+	public static Color cyan = new Color (0, 128, 128);
+	public static Color white = new Color (192, 192, 192);
+	public static Color brightBlack = new Color (128, 128, 128);
+	public static Color brightRed = new Color (255, 0, 0);
+	public static Color brightGreen = new Color (0, 255, 0);
+	public static Color brightYellow = new Color (255, 255, 0);
+	public static Color brightBlue = new Color (0, 0, 255);
+	public static Color brightMagenta = new Color (255, 0 , 255);
+	public static Color brightCyan = new Color (0, 255, 255);
+	public static Color brightWhite = new Color (255, 255, 255);
+	
+	private Image offcreenBuffer;
+	private Graphics offscreenGraphics;
+	private int widthInCharacters;
+	private int heightInCharacters;
+	private int charWidth = 0;
+	private int charHeight = 16;
+	private String terminalFontFile = "cp437_9x16.png";
+	private Color defaultBackgroundColor;
+	private Color defaultForegroundColor;
 	/**
 	 * Class constructor
 	 * Default size is 80x24
@@ -36,7 +61,7 @@ public class HelpPanel extends JPanel{
 		super();
 		
 		if (width <1) {
-			throw new IllegalArgumentException("width " + widht + " must be gerater than 0.");
+			throw new IllegalArgumentException("width " + width + " must be gerater than 0.");
 		}
 		
 		if (height < 1) {
@@ -46,7 +71,7 @@ public class HelpPanel extends JPanel{
 		widthInCharacters = width;
 		heightInCharacters = height;
 		
-		defaultBackgroundColor = back;
+		defaultBackgroundColor = black;
 		defaultForegroundColor = white;
 		
 		chars = new car[widthInCharacters][heightInCharacters];
