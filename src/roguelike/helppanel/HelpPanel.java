@@ -40,6 +40,22 @@ public class HelpPanel extends JPanel{
 	private String terminalFontFile = "cp437_9x16.png";
 	private Color defaultBackgroundColor;
 	private Color defaultForegroundColor;
+	private int cursorX;
+	private int cursorY;
+	private BufferedImage glyphSprite;
+	private BufferedImage[] glyphs;
+	private char[][] chars;
+	private Color[][] backgroundColors;
+	private Color[][] foregroundColors;
+	private char[][] oldChars;
+	private Color[][] oldBackgroundColors;
+	private Color[][] oldForegroundColors;
+	private HelpFront helpFront;
+	
+	public int getCharHeight() {
+		return charHeight;
+	}
+	
 	/**
 	 * Class constructor
 	 * Default size is 80x24

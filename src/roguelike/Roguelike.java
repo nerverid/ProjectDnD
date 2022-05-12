@@ -15,6 +15,7 @@ import roguelike.entities.Creature;
 import roguelike.helppanel.*;
 import roguelike.ui.UiDesk;
 import roguelike.world.World;
+import roguelike.world.WorldBuilder;
 
 public class Roguelike {
 	
@@ -68,7 +69,7 @@ public class Roguelike {
 			
 			while((line = br.readLine()) != null) {
 				String [] data = line.split(", ");
-				Map<String, String> entityData = new HachMap<>();
+				Map<String, String> entityData = new HashMap<>();
 				
 				for(int i=0; i<attributeNames.length; i++) {
 					entityDate.put(attributeNames[i], data[i]);
