@@ -56,6 +56,34 @@ public class HelpPanel extends JPanel{
 		return charHeight;
 	}
 	
+	public int getCharWidth() {
+		return charWidth;
+	}
+	
+	
+	public int getHeightInCharacters() {
+		return heightInCharacters;
+	}
+	
+	public int getWidthInCharacters() {
+		return widthInCharacters;
+	}
+	
+	public int getCursorX() {
+		return cursorX;
+	}
+	
+	public void setCursorX(int cursorX) {
+		if(cursorX < 0 || cursorX >= widthInCharacters) {
+			throw new IllegalArgumentException("cursorX " + cursorX + " must be within range [0, " +
+		widthInCharacters + ").");
+			this.cursorX = cursorX;
+		}
+	}
+	
+	public int getCursorY() {
+		return cursorY;
+	}
 	/**
 	 * Class constructor
 	 * Default size is 80x24

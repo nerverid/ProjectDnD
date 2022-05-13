@@ -2,7 +2,9 @@ package roguelike;
 
 import java.awt.Color;
 import java.awt.Rectangle;
+import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -72,7 +74,7 @@ public class Roguelike {
 				Map<String, String> entityData = new HashMap<>();
 				
 				for(int i=0; i<attributeNames.length; i++) {
-					entityDate.put(attributeNames[i], data[i]);
+					entityData.put(attributeNames[i], data[i]);
 				}
 				
 				String name = data[1];
