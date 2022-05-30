@@ -74,11 +74,10 @@ public class HelpPanel extends JPanel{
 	}
 	
 	public void setCursorX(int cursorX) {
-		if(cursorX < 0 || cursorX >= widthInCharacters) {
+		if(cursorX < 0 || cursorX >= widthInCharacters) 
 			throw new IllegalArgumentException("cursorX " + cursorX + " must be within range [0, " +
 		widthInCharacters + ").");
 			this.cursorX = cursorX;
-		}
 	}
 	
 	public int getCursorY() {
@@ -88,6 +87,15 @@ public class HelpPanel extends JPanel{
 	 * Class constructor
 	 * Default size is 80x24
 	 */
+	
+	public void setCursorY(int cursorY) {
+		if(cursorY < 0 || cursorY >= heightInCharacters)
+			throw new IllegalArgumentException("cursorY " + cursorY " must be within range [0," + heightInCharacrers + ").");
+	
+		this.cursorY = cursorY;
+	}
+	
+	
 	public HelpPanel() {
 		this(80, 24);
 	}
