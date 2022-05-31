@@ -50,7 +50,7 @@ public class HelpPanel extends JPanel{
 	private char[][] oldChars;
 	private Color[][] oldBackgroundColors;
 	private Color[][] oldForegroundColors;
-	private HelpFront helpFront;
+	private HelpFont helpFont;
 	
 	public int getCharHeight() {
 		return charHeight;
@@ -95,6 +95,36 @@ public class HelpPanel extends JPanel{
 		this.cursorY = cursorY;
 	}
 	
+	public void setCursorPosition(int x, int y) {
+		setCursorX(x);
+		setCursorY(y);
+	}
+	
+	public Color getDefaultBackgroundColor() {
+		return defaultBackgroundColor;
+	}
+	
+	public void setDefaultBackgroundColor(Color defaultBlackgroundColor) {
+		if (defaultBackgroundColor == null)
+			throw new NullPointerException("defaultBackgroundColor must not be null.");
+		
+		this.defaultBackgroundColor = defaultBlackgroundColor;
+	}
+	
+	public Color getDefaultForegroundColor() {
+		return defaultForegroundColor;
+	}
+	
+	public void setDefaultForegroundColor(Color defaultForegroundColor) {
+		if (defaultForegroundColor == null)
+			throw new NullPointerException("defaultForegroundColor must not be null.");
+		
+		this.defaultForegroundColor = defaultForegroundColor;
+	}
+	
+	public HelpFont getHelpFont() {
+		return helpFont;
+	}
 	
 	public HelpPanel() {
 		this(80, 24);
