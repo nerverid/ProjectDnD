@@ -126,6 +126,30 @@ public class HelpPanel extends JPanel{
 		return helpFont;
 	}
 	
+	public void setHelpFont(HelpFont font) {
+		if(this.helpFont == font) {
+			return;
+		}
+		this.helpFont = font;
+		
+		this.charHeight = font.getHeight();
+		this.charWidth = font.getWidth();
+		this.terminalFontFile = font.getFontFilename();
+		
+		Dimension panelSize = new Dimension(charWidth * widthInCharacters, charHeight * heightInCharacters);
+		setPreferredSize(panelSize);
+		
+		glyphs = new BufferedImage[256];
+		
+		offscreenBuffer = new BufferedImage(panelSize.width, panelSize.height, BufferedImage.TYPE_INT_RGB);
+		offscreenGraphics = offscreenBuffer.getGraphics();
+		
+		loadGliphs();
+		
+		oldChars = new char[widthInCharacters][heightInCharacters];
+	}
+	
+	
 	public HelpPanel() {
 		this(80, 24);
 	}
@@ -167,5 +191,9 @@ public class HelpPanel extends JPanel{
 			font = AsciiFont.CP437_9x16;
 		}
 		setAsciiFont(font);
+	}
+	
+	public void update(Graphice g) {
+		paint(g);
 	}
 }
