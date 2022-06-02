@@ -196,4 +196,31 @@ public class HelpPanel extends JPanel{
 	public void update(Graphice g) {
 		paint(g);
 	}
+	
+	public void paint(Graphics g) {
+		if (g == null)
+			throw new NullPointerException();
+		
+		for (int x = 0; x < widthInCharacters; x++) {
+			for (int y = 0; y < heightInCharacters; y++) {
+				if (oldBackgroundColors[x][y] == backgroundColors[x][y]
+						&& oldForegroundColors[x][y] == foregroundColors[x][y]
+						&& oldChars[x][y] == chars[x][y])
+							continue;
+				
+				Color bg = backgroundColors[x][y];
+				Color fg = foregroundColors[x][y];
+				
+				LookupOp op = setColors(bg, fg);
+				BufferedImage img = op.filter(gliphs[char[x][y]], null);
+				offscreenGraphics.drawImage(img, x * charWidth, y * charHeight, null);
+				
+				oldBackgroundColors[x][y] = backgroundColors[x][y];
+				oldForegroundColors[x][y] = foregroundColors[x][y];
+				oldChars[x][y] = chars[x][y];
+			}
+		}
+		
+		g.drawImage(offscreenBuffer, 0,0, this);
+	}
 }
