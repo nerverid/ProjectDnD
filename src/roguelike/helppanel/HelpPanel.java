@@ -31,7 +31,7 @@ public class HelpPanel extends JPanel{
 	public static Color brightCyan = new Color (0, 255, 255);
 	public static Color brightWhite = new Color (255, 255, 255);
 	
-	private Image offcreenBuffer;
+	private Image offscreenBuffer;
 	private Graphics offscreenGraphics;
 	private int widthInCharacters;
 	private int heightInCharacters;
@@ -90,7 +90,7 @@ public class HelpPanel extends JPanel{
 	
 	public void setCursorY(int cursorY) {
 		if(cursorY < 0 || cursorY >= heightInCharacters)
-			throw new IllegalArgumentException("cursorY " + cursorY " must be within range [0," + heightInCharacrers + ").");
+			throw new IllegalArgumentException("cursorY " + cursorY + " must be within range [0," + heightInCharacters + ").");
 	
 		this.cursorY = cursorY;
 	}
@@ -212,7 +212,7 @@ public class HelpPanel extends JPanel{
 				Color fg = foregroundColors[x][y];
 				
 				LookupOp op = setColors(bg, fg);
-				BufferedImage img = op.filter(gliphs[char[x][y]], null);
+				BufferedImage img = op.filter(glyphs[char[x][y]], null);
 				offscreenGraphics.drawImage(img, x * charWidth, y * charHeight, null);
 				
 				oldBackgroundColors[x][y] = backgroundColors[x][y];
@@ -222,5 +222,30 @@ public class HelpPanel extends JPanel{
 		}
 		
 		g.drawImage(offscreenBuffer, 0,0, this);
+	}
+	
+	private void loadGlyphs() {
+		try {
+			glyphSprite = ImageIO.read(HelpPanel.class.getClassLoader().getResource(terminalFontFile));
+		} catch (IOException e) {
+			System.err.println("loadGlyphs(): " + e.getMessage());
+		}
+		
+		for (int i = 0; i < 256; i++) {
+			int sx = (i % 16) * charWidth;
+			int sy = (i / 16) * charHeight;
+			
+			glyphs[i] = new BufferedImage(charWidth, charHeight, BufferedImage.TYPE_INT_ARGB);
+			glyphs[i].getGraphics().drawImage(glyphSprite, 0, 0, charWidth, charHeight, sx, sy, sx + charWidth, sy + charHeight, null)
+		}
+	}
+	
+	private LookupOp setColors(Color bgColor, Color fgColor) {
+		short[] a = new short[256];
+		short[] r = new short[256];
+		short[] g = new short[256];
+		short[] b = new short[256];
+		
+		
 	}
 }
