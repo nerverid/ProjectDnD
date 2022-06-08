@@ -273,4 +273,8 @@ public class HelpPanel extends JPanel{
 		short [][] table = {r, g, b, a};
 		return new LookupOp(new ShortLookupTable(0, table), null);
 	}
+	
+	public HelpPanel clear() {
+		return clear (' ', 0 , 0, widthInCharacters, heightInCharacters, defaultForegroundColor, defaultBackgroundColor);
+	}
 }
