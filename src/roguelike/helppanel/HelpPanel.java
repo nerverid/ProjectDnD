@@ -277,4 +277,10 @@ public class HelpPanel extends JPanel{
 	public HelpPanel clear() {
 		return clear (' ', 0 , 0, widthInCharacters, heightInCharacters, defaultForegroundColor, defaultBackgroundColor);
 	}
+	
+	public HelpPanel clear(char character) {
+		if(character < 0 || character >= glyphs.length)
+			throw new IllegalArgumentException("character " + character + " must be within range [0," + glyphs.length + "].");
+		return clear(character, 0,0, widthInCharacters, heightInCharacters, defaultForegroundColor, defaultBackgroundColor);
+	}
 }
